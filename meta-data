@@ -1,8 +1,0 @@
-instance-id: kube-master
-local-hostname: kube-master
-
-network-interfaces: |
-  iface eth0 inet static
-  address 192.168.122.21
-  netmask 255.255.255.0
-  gateway 192.168.122.1
