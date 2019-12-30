@@ -9,7 +9,7 @@ die () {
 
 # Function: Print a help message.
 usage() { 
-  echo "Usage: $0 [ VM ] [ -n VM ] [ -i IPADDR ]" 1>&2 
+  echo "Usage: $0 [ vm_name ] [ -n vm_name ] [ -m memory_mb ] [ -c num_cpus ] [ -i ip ]" 1>&2 
 }
 
 ## Exports vars from config file
@@ -18,9 +18,11 @@ source config.conf
 set +o allexport
 
 ## Use the arguments passed to script file
-while getopts n:i:h option ; do
+while getopts n:m:c:i:h option ; do
   case "${option}" in 
     n) VM=${OPTARG};;
+    m) VM_MEM=${OPTARG};;
+    c) VM_CPU=${OPTARG};;
     i) IPADDR=${OPTARG};;
     h) usage && exit;;
     *) VM=${OPTARG};;
@@ -44,7 +46,7 @@ rm -f user-data user-head-data meta-data
 sudo virsh pool-create-as --name $VM --type dir --target ${DATA_DIR}/$VM
 
 sudo virt-install --import --name $VM \
---memory 1024 --vcpus 1 --cpu host \
+--memory ${VM_MEM} --vcpus ${VM_CPU} --cpu host \
 --disk ${DATA_DIR}/$VM/$VM.qcow2,format=qcow2,bus=virtio \
 --disk ${DATA_DIR}/$VM/$VM-cidata.iso,device=cdrom \
 --network ${KVM_NETWORK_MODE},model=virtio \

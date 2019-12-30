@@ -25,7 +25,7 @@ Change the config file: `config.conf` and in order to create a `centos7` vm, run
 ```
 or
 ```
-./new-vm.sh -n centos7 -i 192.168.122.11
+./new-vm.sh -n centos7 -m 1024 -c 2 -i 192.168.122.11
 ```
 
 Post install

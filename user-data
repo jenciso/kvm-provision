@@ -1,0 +1,36 @@
+#cloud-config
+
+# Hostname management
+preserve_hostname: False
+hostname: kube-master
+fqdn: kube-master.enciso.website
+
+# Users
+users:
+  - name: centos
+    groups: ['wheel']
+    shell: /bin/bash
+    lock_passwd: false
+    passwd: $1$SaltSalt$wyNPtXcHHzAJ8I4lp0IxZ0
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYN0xPPa9KV0pZ5vNyet5e5fvWHNCgOTJ5ON9SHef35V3E3gBL+OUQSyEsMxhnTvXoqRhgUSpEBd7fkpCECpiOrcUA2QSSKYJgDL4svzPouqXfAMKGn7Od00fttyWdcqw9E/ypAEhpieWpguxTTKPVXBV3a97C9AIqzdnHpNYw9oEnsbJu0+AxwjAFkkpg6ovdidxCl+0r6XsfNPjv7qoHJQkwIOuAGsJPgsky6NLX7fNbUtz3c1vLAWUPGEno2pN3THexdl9hi9AwZnjr7Ot/bQyLdTV0/dVP3PyB0rbpCg6gSx8pqaPgfMwZUykJUCeAGQUlZ44IgsjP3j/Ok3fF jenciso@x420ua
+
+# Configure where output will go
+output:
+  all: ">> /var/log/cloud-init.log"
+ 
+# configure interaction with ssh server
+ssh_genkeytypes: ['rsa']
+ 
+# set timezone for VM
+timezone: America/Sao_Paulo
+
+# Remove cloud-init 
+runcmd:
+  - sed -i "s/ONBOOT=no/ONBOOT=yes/" /etc/sysconfig/network-scripts/ifcfg-eth0
+  - echo "DNS1=192.168.122.1" >> /etc/sysconfig/network-scripts/ifcfg-eth0
+  - echo "DNS2=1.1.1.1" >> /etc/sysconfig/network-scripts/ifcfg-eth0
+  - echo "DOMAIN=enciso.website" >> /etc/sysconfig/network-scripts/ifcfg-eth0
+  - ifdown eth0 && sleep 1 && ifup eth0
+  - yum -y remove cloud-init
