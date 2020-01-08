@@ -33,7 +33,7 @@ done
 cat templates/user-data.template | envsubst > user-data
 cat templates/meta-data.template | envsubst > meta-data
 
-## Initializing the configuration
+## Initializing configs
 sudo mkdir -p ${DATA_DIR}/$VM
 sudo cp /var/lib/libvirt/boot/CentOS-7-x86_64-GenericCloud.qcow2 ${DATA_DIR}/$VM/$VM.qcow2
 export LIBGUESTFS_BACKEND=direct
@@ -43,8 +43,10 @@ sudo mv -f ${DATA_DIR}/$VM/$VM.new.image ${DATA_DIR}/$VM/$VM.qcow2
 sudo mkisofs -o ${DATA_DIR}/$VM/$VM-cidata.iso -V cidata -J --input-charset iso8859-1 -r user-data meta-data
 rm -f user-data user-head-data meta-data
 
+## creating pool
 sudo virsh pool-create-as --name $VM --type dir --target ${DATA_DIR}/$VM
 
+## Creating VM
 sudo virt-install --import --name $VM \
 --memory ${VM_MEM} --vcpus ${VM_CPU} --cpu host \
 --disk ${DATA_DIR}/$VM/$VM.qcow2,format=qcow2,bus=virtio \
@@ -55,4 +57,5 @@ sudo virt-install --import --name $VM \
 --graphics spice \
 --noautoconsole
 
+## Starting VM
 sudo virsh autostart $VM
