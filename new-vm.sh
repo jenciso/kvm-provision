@@ -57,5 +57,9 @@ sudo virt-install --import --name $VM \
 --graphics spice \
 --noautoconsole
 
-## Starting VM
+## Automatically startup when the host machine initialize its boot process
 sudo virsh autostart $VM
+
+## Eject iso media. This change will be applied in the next reboot
+sudo virsh change-media $VM hda --eject --config
+sudo rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso
