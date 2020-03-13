@@ -2,7 +2,7 @@
 
 ### REQUERIMENTOS
 
-Instalar estos pacotes
+Instalar os pacotes:
 
 ```shell
 sudo apt-get install qemu qemu-kvm libvirt-bin bridge-utils virt-manager libguestfs-tools
@@ -30,7 +30,7 @@ ou, para ser mais customizado
 ./new-vm.sh -n centos7 -m 1024 -c 2 -i 192.168.122.11
 ```
 
-Post Instalação
+Apos instalação
 
 ```shell
 source config.conf
