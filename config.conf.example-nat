@@ -1,0 +1,20 @@
+### Config file to use for KVM scripts to provision a virtual machine using cloud-init
+VM=centos7
+VM_MEM=1024
+VM_CPU=1
+
+IPADDR=192.168.122.10
+GATEWAY=192.168.122.1
+NETMASK=255.255.255.0
+DOMAIN=enciso.website
+DNS1=192.168.122.1
+DNS2=1.1.1.1
+
+KVM_NETWORK_MODE='network=default'  ## If you prefer use bridge, you need to setup the interface and change this var to KVM_NETWORK_MODE='bridge=br0'
+TIMEZONE='America/Sao_Paulo'
+PASSWORD='$1$SaltSalt$sZfcAE2tuRN/yVKnCmArs0'  ## Use: openssl passwd -1 -salt SaltSalt mypassword
+DATA_DIR=/data/vms
+DISK_SIZE=40G
+
+## Use `cat ~/.ssh/id_rsa.pub | pbcopy`
+SSH_KEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC906NbXKUrNzawIHvW7vVWcMdQiEI54zIIw4Yi71L514NCXja6nLGOOKV7HmM/3+T4ION1WqxVbCcs2G5ESuazOVaoDbFEtwhRveUemMfDZGeeTdYFAP2HyTcpVmntJQF98+tbk2CTOaQQ0KQ4M0BqmzfMT2TcuP/1yJf6C9I0ObpvYHLvaLuhKxoPzIGXuwlxKmOwL7jxeTjmm+nZs/Toh9YP4t+7CdqlKSvh7uGh/v00ugNTDHmoCTmbkrDtPCh/k8jpLq1mKwWsup1Za+U0d4293K5JhDLr/BUB2CLr9M1QxYnvLc4WwhZe0gUSV9Gf33E2ydB8PqGUyVSc4n3z jenciso@lat3480i7'

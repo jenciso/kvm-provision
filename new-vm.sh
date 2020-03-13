@@ -30,8 +30,10 @@ while getopts n:m:c:i:h option ; do
 done
 
 ## Creating meta and user data
-cat templates/user-data.template | envsubst > user-data
-cat templates/meta-data.template | envsubst > meta-data
+TPM_WORKDIR=`mktemp -d -t XXX`
+
+cat templates/user-data.template | envsubst > ${TPM_WORKDIR}/user-data
+cat templates/meta-data.template | envsubst > ${TPM_WORKDIR}/meta-data
 
 ## Initializing configs
 sudo mkdir -p ${DATA_DIR}/$VM
@@ -40,8 +42,8 @@ export LIBGUESTFS_BACKEND=direct
 sudo qemu-img create -f qcow2 -o preallocation=metadata ${DATA_DIR}/$VM/$VM.new.image ${DISK_SIZE}
 sudo virt-resize --quiet --expand /dev/sda1 ${DATA_DIR}/$VM/$VM.qcow2 ${DATA_DIR}/$VM/$VM.new.image
 sudo mv -f ${DATA_DIR}/$VM/$VM.new.image ${DATA_DIR}/$VM/$VM.qcow2
-sudo mkisofs -o ${DATA_DIR}/$VM/$VM-cidata.iso -V cidata -J --input-charset iso8859-1 -r user-data meta-data
-rm -f user-data user-head-data meta-data
+sudo mkisofs -o ${DATA_DIR}/$VM/$VM-cidata.iso -V cidata -J --input-charset iso8859-1 -r ${TPM_WORKDIR}/user-data ${TPM_WORKDIR}/meta-data
+rm -f ${TPM_WORKDIR}/user-data ${TPM_WORKDIR}/meta-data
 
 ## creating pool
 sudo virsh pool-create-as --name $VM --type dir --target ${DATA_DIR}/$VM
