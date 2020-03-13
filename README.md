@@ -2,7 +2,7 @@
 
 ### PRE-REQUISITES
 
-For Ubuntu host, you need to install these packages:
+In Ubuntu host you need to install these packages:
 
 ```
 sudo apt-get install qemu qemu-kvm libvirt-bin bridge-utils virt-manager libguestfs-tools
@@ -19,16 +19,18 @@ wget http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2 
 
 ### CREATE A VM
 
-Change the config file: `config.conf` and in order to create a `centos7` vm, run:
+Change the file: `config.conf` if you need to customize some features. 
+
+To create a VM `centos7`:
 ```
 ./new-vm.sh centos7
 ```
-or
+or, using some parameters
 ```
 ./new-vm.sh -n centos7 -m 1024 -c 2 -i 192.168.122.11
 ```
 
-Post install
+Post installation
 ```
 source config.conf
 export VM=centos7
@@ -36,15 +38,14 @@ sudo virsh change-media $VM hda --eject --config
 sudo rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso
 ```
 
-To delete a vm named `centos7`
+To delete a vm `centos7`
 ```
 ./del-vm.sh centos7
 ```
 
-
 ### Notes:
 
-In any moment you could to pause or break your download, in order to continue the process, use -c flag
+If your download is very slow, you could use `-c` flag to continue download using wget
 
 ```
 sudo wget -c http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2   -O /var/lib/libvirt/boot/CentOS-7-x86_64-GenericCloud.qcow2
