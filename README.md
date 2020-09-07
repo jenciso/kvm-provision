@@ -32,8 +32,9 @@ Passing some arguments:
 ./new-vm.sh -n centos7 -m 1024 -c 2 -i 192.168.122.11
 ```
 
-Steps post-installation:
-```
+Post-installation steps:
+
+```shell
 source config.conf
 export VM=centos7
 sudo virsh change-media $VM hda --eject --config
@@ -41,7 +42,7 @@ sudo rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso
 ```
 
 To destroy the vm named `centos7`
-```
+```shell
 ./del-vm.sh centos7
 ```
 
@@ -50,7 +51,7 @@ To destroy the vm named `centos7`
 * How to add a second disk?
 
 This will add 60GB disk:
-```
+```shell
 ./add-disk.sh -n centos7 -d vdb -s 60G
 ```
 > Its name will be /dev/vdb
@@ -59,6 +60,7 @@ This will add 60GB disk:
 
 If your download is slower, you could use `-c` flag to continue downloading to get after each broke connections
 
-```
-sudo wget -c http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2   -O /var/lib/libvirt/boot/CentOS-7-x86_64-GenericCloud.qcow2
+```shell
+sudo wget -c http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2 \
+  -O /var/lib/libvirt/boot/CentOS-7-x86_64-GenericCloud.qcow2
 ```
