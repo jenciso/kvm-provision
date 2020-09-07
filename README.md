@@ -13,7 +13,7 @@ sudo update-rc.d libvirtd enable
 Also, in order to create virtual machines, you should have a iso image or a qcow2 cloud image. We prefer centos7 cloud image. To download it, run:
 
 ```shell
-wget http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2 \
+sudo wget http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2 \
   -O /var/lib/libvirt/boot/CentOS-7-x86_64-GenericCloud.qcow2 
 ```
 
