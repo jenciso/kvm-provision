@@ -1,6 +1,6 @@
-## KVM 
+# KVM 
 
-### PRE-REQUISITES
+## PRE-REQUISITES
 
 Before to use this tool, you need to install these packages (Ubuntu host):
 
@@ -17,7 +17,7 @@ wget http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2 
   -O /var/lib/libvirt/boot/CentOS-7-x86_64-GenericCloud.qcow2 
 ```
 
-### GETTING STARTED
+## GETTING STARTED
 
 To create a virtual machine (VM), you need to modify the `config.conf` file to customize some feature. Otherwise, you only need to specify the name of the VM.
 
@@ -46,7 +46,7 @@ To destroy the vm named `centos7`
 ./del-vm.sh centos7
 ```
 
-### TIPS
+## TIPS
 
 * How to add a second disk?
 
