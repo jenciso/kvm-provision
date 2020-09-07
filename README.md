@@ -19,15 +19,16 @@ wget http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2 
 
 ## GETTING STARTED
 
-To create a virtual machine (VM), you need to modify the `config.conf` file to customize some feature. Otherwise, you only need to specify the name of the VM.
+To create a virtual machine (VM), you need to modify the `config.conf` file in order to customize some features. Otherwise, you only need to specify the name of the VM and the VM will be create with the default configuration.
 
-Ex: creating  a VM named `centos7`
+Example: creating a VM with the name `centos7`
 
 ```
 ./new-vm.sh centos7
 ```
 
-Passing some arguments:
+Or using some arguments:
+
 ```
 ./new-vm.sh -n centos7 -m 1024 -c 2 -i 192.168.122.11
 ```
@@ -41,7 +42,8 @@ sudo virsh change-media $VM hda --eject --config
 sudo rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso
 ```
 
-To destroy the vm named `centos7`
+Finally, to destroy the vm named `centos7`
+
 ```shell
 ./del-vm.sh centos7
 ```
@@ -50,13 +52,13 @@ To destroy the vm named `centos7`
 
 * How to add a second disk?
 
-This will add 60GB disk:
+This command will create the `/dev/vdb` device with 60GB 
+
 ```shell
 ./add-disk.sh -n centos7 -d vdb -s 60G
 ```
-> Its name will be /dev/vdb
 
-* How to download the centos7 cloud image in slow internet connections?
+* How to get the centos7 cloud image using a slower internet connection?
 
 If your download is slower, you could use `-c` flag to continue downloading to get after each broke connections
 
