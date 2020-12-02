@@ -39,7 +39,7 @@ cat templates/meta-data.template | envsubst > ${TPM_WORKDIR}/meta-data
 sudo mkdir -p ${DATA_DIR}/$VM
 sudo cp /var/lib/libvirt/boot/CentOS-7-x86_64-GenericCloud.qcow2 ${DATA_DIR}/$VM/$VM.qcow2
 export LIBGUESTFS_BACKEND=direct
-sudo qemu-img create -f qcow2 -o preallocation=metadata ${DATA_DIR}/$VM/$VM.new.image ${DISK_SIZE}
+sudo qemu-img create -f qcow2 -o preallocation=off ${DATA_DIR}/$VM/$VM.new.image ${DISK_SIZE}
 sudo virt-resize --quiet --expand /dev/sda1 ${DATA_DIR}/$VM/$VM.qcow2 ${DATA_DIR}/$VM/$VM.new.image
 sudo mv -f ${DATA_DIR}/$VM/$VM.new.image ${DATA_DIR}/$VM/$VM.qcow2
 sudo mkisofs -o ${DATA_DIR}/$VM/$VM-cidata.iso -V cidata -J --input-charset iso8859-1 -r ${TPM_WORKDIR}/user-data ${TPM_WORKDIR}/meta-data
