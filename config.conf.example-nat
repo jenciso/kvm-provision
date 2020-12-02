@@ -7,8 +7,8 @@ IPADDR=192.168.122.10
 GATEWAY=192.168.122.1
 NETMASK=255.255.255.0
 DOMAIN=enciso.website
-DNS1=192.168.122.1
-DNS2=1.1.1.1
+DNS1=1.1.1.1
+DNS2=1.0.0.1
 
 KVM_NETWORK_MODE='network=default'  ## If you prefer use bridge, you need to setup the interface and change this var to KVM_NETWORK_MODE='bridge=br0'
 TIMEZONE='America/Sao_Paulo'
