@@ -1,8 +1,2 @@
 instance-id: ${VM}
 local-hostname: ${VM}
-
-network-interfaces: |
-  iface eth0 inet static
-  address ${IPADDR}
-  netmask ${NETMASK}
-  gateway ${GATEWAY}
