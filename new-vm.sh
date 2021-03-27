@@ -109,5 +109,5 @@ if [[ ${AUTOSTART} == "true" ]]; then
 fi
 
 ## Eject iso media. This change will be applied in the next reboot
-sudo virsh change-media $VM hda --eject --config
+sudo virsh change-media $VM sda --eject --config
 sudo rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso

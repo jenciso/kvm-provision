@@ -80,4 +80,4 @@ DHCP_CLIENT=false
 ## References
 
 https://github.com/giovtorres/kvm-install-vm
-
+https://blog.programster.org/kvm-missing-default-network
