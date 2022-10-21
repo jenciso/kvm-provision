@@ -5,7 +5,7 @@
 This code run on an Ubuntu 18 host machine. It need to have installed these packages:
 
 ```shell
-sudo apt-get install qemu qemu-kvm libvirt-bin bridge-utils virt-manager libguestfs-tools
+sudo apt-get install qemu qemu-kvm libvirt-bin bridge-utils virt-manager libguestfs-tools genisoimage
 sudo service libvirtd start
 sudo update-rc.d libvirtd enable
 ```
