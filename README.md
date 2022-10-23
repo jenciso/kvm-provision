@@ -1,8 +1,8 @@
 # KVM PROVISION
 
-## GETTING STARTED
+## Getting Started
 
-### PRE-REQUISITES
+### Pre-requisites
 
 This provision process was tested in Ubuntu 22.04, it need some packages as pre-requisites.
 
@@ -32,7 +32,7 @@ Now, download it:
 sudo -E wget -P /var/lib/libvirt/boot/ $URL_QCOW2
 ```
 
-### PROVISION A VM
+### provisioning a VM
 
 To create a virtual machine (VM), you need to modify the `.env` file to customize your VM. You can use `.env.sample` to know more about the configuration. Example: creating a VM with the name `centos7`
 ```
@@ -51,12 +51,12 @@ sudo -E virsh change-media $VM hda --eject --config
 sudo -E rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso
 ```
 
-### Destroy VM
+### Destroying VM
 ```
 ./del-vm.sh -n ubuntu
 ```
 
-### MORE OPTIONS
+### Aditional settings
 
 * How to add a second disk?
 ```
@@ -75,6 +75,6 @@ DHCP_CLIENT=true
 
 ## References
 
-https://github.com/giovtorres/kvm-install-vm
-https://blog.programster.org/kvm-missing-default-network
-https://medium.com/@art.vasilyev/use-ubuntu-cloud-image-with-kvm-1f28c19f82f8
+- https://github.com/giovtorres/kvm-install-vm
+- https://blog.programster.org/kvm-missing-default-network
+- https://medium.com/@art.vasilyev/use-ubuntu-cloud-image-with-kvm-1f28c19f82f8
