@@ -5,10 +5,10 @@ VM_CPU=1
 
 IPADDR=10.64.13.201
 GATEWAY=10.64.13.1
-NETMASK=255.255.255.0
-DOMAIN=enciso.website
-DNS1=10.64.0.8
-DNS2=10.64.0.11
+PERFIX=24
+DOMAIN=fftech.site
+DNS1=1.1.1.1
+DNS2=1.0.0.1
 
 KVM_NETWORK_MODE='bridge=br0'  ## If you prefer use bridge, you need to setup the interface and change this var to KVM_NETWORK_MODE='bridge=br0'
 TIMEZONE='America/Sao_Paulo'

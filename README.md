@@ -50,7 +50,7 @@ sudo -E rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso
 Finally, to destroy the vm named `centos7`
 
 ```shell
-./del-vm.sh centos7
+./del-vm.sh -n centos7
 ```
 
 ## TIPS

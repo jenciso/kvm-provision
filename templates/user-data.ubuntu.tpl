@@ -38,15 +38,24 @@ ssh_genkeytypes: ['rsa']
 # set timezone for VM
 timezone: ${TIMEZONE}
 
-# Remove cloud-init 
+# Setup cloud-init 
 runcmd:
-  - sed -i "s/ONBOOT=no/ONBOOT=yes/" /etc/sysconfig/network-scripts/ifcfg-eth0
-  - sed -i "s/BOOTPROTO=dhcp/BOOTPROTO=static/" /etc/sysconfig/network-scripts/ifcfg-eth0
-  - echo "IPADDR=${IPADDR}" >> /etc/sysconfig/network-scripts/ifcfg-eth0
-  - echo "NETMASK=${NETMASK}" >> /etc/sysconfig/network-scripts/ifcfg-eth0
-  - echo "GATEWAY=${GATEWAY}" >> /etc/sysconfig/network-scripts/ifcfg-eth0
-  - echo "DNS1=${DNS1}" >> /etc/sysconfig/network-scripts/ifcfg-eth0
-  - echo "DNS2=${DNS2}" >> /etc/sysconfig/network-scripts/ifcfg-eth0
-  - echo "DOMAIN=${DOMAIN}" >> /etc/sysconfig/network-scripts/ifcfg-eth0
-  - ifdown eth0 && sleep 1 && ifup eth0
-  - yum -y remove cloud-init
+  - |
+    cat >> /etc/netplan/01-netcfg.yaml << EOF
+    network:
+      version: 2
+      renderer: networkd
+      ethernets:
+        enp1s0:
+          addresses:
+            - ${IPADDR}/${PREFIX}
+          nameservers:
+            addresses: [${DNS1},${DNS2}]
+            search: [${DOMAIN}]
+          routes:
+            - to: default
+              via: ${GATEWAY}
+    EOF
+  - rm -f /etc/netplan/50-cloud-init.yaml
+  - netplan apply
+  - apt-get remove cloud-init
