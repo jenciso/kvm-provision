@@ -32,7 +32,7 @@ Now, download it:
 sudo -E wget -P /var/lib/libvirt/boot/ $URL_QCOW2
 ```
 
-### provisioning a VM
+### Provisioning
 
 To create a virtual machine (VM), you need to modify the `.env` file to customize your VM. You can use `.env.sample` to know more about the configuration. Example: creating a VM with the name `centos7`
 ```
@@ -71,6 +71,11 @@ sudo -E rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso
 * How to enable DHCP?
 ```
 DHCP_CLIENT=true
+```
+
+* How to know the IP address?
+```
+virsh domifaddr $VM
 ```
 
 ## References
