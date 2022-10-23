@@ -1,35 +1,45 @@
 # KVM 
 
-## PRE-REQUISITES
-
-This code run on an Ubuntu 18 host machine. It need to have installed these packages:
-
-```shell
-sudo apt-get install qemu qemu-kvm libvirt-bin bridge-utils virt-manager libguestfs-tools genisoimage
-sudo service libvirtd start
-sudo update-rc.d libvirtd enable
-```
-
-In order to create virtual machines, you should have a iso image or a qcow2 cloud image. We prefer centos7 cloud image. To download it, run:
-
-```shell
-URL_QCOW2_CENTOS7=http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
-URL_QCOW2_CENTOS8=https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20201217.0.x86_64.qcow2
-URL_QCOW2_AMAZON2=https://cdn.amazonlinux.com/os-images/2.0.20201111.0/kvm/amzn2-kvm-2.0.20201111.0-x86_64.xfs.gpt.qcow2
-
-sudo -E wget -P /var/lib/libvirt/boot/ $URL_QCOW2_CENTOS7
-sudo -E wget -P /var/lib/libvirt/boot/ $URL_QCOW2_CENTOS8
-sudo -E wget -P /var/lib/libvirt/boot/ $URL_QCOW2_AMAZON2
-```
-
 ## GETTING STARTED
+
+### PRE-REQUISITES
+
+This provision process was tested in Ubuntu 22.04, it need some packages as pre-requisites.
+
+```
+sudo apt-get install qemu \
+  qemu-kvm \
+  libvirt-bin \
+  bridge-utils \
+  virt-manager \
+  libguestfs-tools \
+  genisoimage
+
+sudo service libvirtd start && sudo update-rc.d libvirtd enable
+```
+
+To download the qcow2 cloud image, define its URL:
+
+```
+URL_QCOW2=https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img
+URL_QCOW2=http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+URL_QCOW2=https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20201217.0.x86_64.qcow2
+URL_QCOW2=https://cdn.amazonlinux.com/os-images/2.0.20201111.0/kvm/amzn2-kvm-2.0.20201111.0-x86_64.xfs.gpt.qcow2
+```
+Now, download it:
+
+```
+sudo -E wget -P /var/lib/libvirt/boot/ $URL_QCOW2
+```
+
+### PROVISION A VM
 
 To create a virtual machine (VM), you need to modify the `config.conf` file in order to customize some features. Otherwise, you only need to specify the name of the VM and the VM will be create with the default configuration.
 
 Example: creating a VM with the name `centos7`
 
 ```
-./new-vm.sh centos7
+./new-vm.sh -n centos7
 ```
 
 Or using arguments:
@@ -40,7 +50,7 @@ Or using arguments:
 
 Post-installation steps:
 
-```shell
+```
 source config.conf
 export VM=centos7
 sudo -E virsh change-media $VM hda --eject --config
@@ -53,7 +63,7 @@ Finally, to destroy the vm named `centos7`
 ./del-vm.sh -n centos7
 ```
 
-## TIPS
+### TIPS
 
 * How to add a second disk?
 

@@ -102,7 +102,7 @@ case "${DISTRO}" in
 esac
 
 sudo mkisofs -o ${DATA_DIR}/$VM/$VM-cidata.iso -V cidata -J --input-charset iso8859-1 -r ${TPM_WORKDIR}/user-data ${TPM_WORKDIR}/meta-data
-#rm -f ${TPM_WORKDIR}/user-data ${TPM_WORKDIR}/meta-data
+rm -f ${TPM_WORKDIR}/user-data ${TPM_WORKDIR}/meta-data
 
 ## creating pool
 sudo virsh pool-create-as --name $VM --type dir --target ${DATA_DIR}/$VM
