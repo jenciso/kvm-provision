@@ -13,9 +13,9 @@ usage() {
 }
 
 ## Exports vars from config file                                                                                                                                                                                    
-set -o allexport                                                                                                                                                                                                    
-source config.conf                                                                                                                                                                                                  
-set +o allexport  
+set -o allexport
+source .env
+set +o allexport
 
 ## Use the arguments passed to script file
 while getopts n:d:s:h option ; do
