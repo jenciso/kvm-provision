@@ -8,7 +8,7 @@ die () {
 
 ## Exports vars
 set -o allexport
-source config.conf
+source .env
 set +o allexport
 
 VM=$1

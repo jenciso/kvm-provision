@@ -14,7 +14,7 @@ usage() {
 
 ## Exports vars from config file
 set -o allexport
-source config.conf
+source .env
 set +o allexport
 
 ## Use the arguments passed to script file

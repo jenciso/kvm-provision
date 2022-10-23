@@ -1,4 +1,4 @@
-# KVM 
+# KVM PROVISION
 
 ## GETTING STARTED
 
@@ -34,60 +34,47 @@ sudo -E wget -P /var/lib/libvirt/boot/ $URL_QCOW2
 
 ### PROVISION A VM
 
-To create a virtual machine (VM), you need to modify the `config.conf` file in order to customize some features. Otherwise, you only need to specify the name of the VM and the VM will be create with the default configuration.
-
-Example: creating a VM with the name `centos7`
-
+To create a virtual machine (VM), you need to modify the `.env` file to customize your VM. You can use `.env.sample` to know more about the configuration. Example: creating a VM with the name `centos7`
 ```
-./new-vm.sh -n centos7
+./new-vm.sh -n ubuntu
 ```
-
 Or using arguments:
-
 ```
-./new-vm.sh -n centos7 -m 1024 -c 2 -i 192.168.122.11 -s 10G -t centos7
+./new-vm.sh -n ubuntu -m 1024 -c 2 -i 192.168.122.10 -s 10G -t ubuntu22
 ```
 
-Post-installation steps:
-
+Post-installation steps (optional):
 ```
-source config.conf
-export VM=centos7
+source .env
+export VM=ubuntu
 sudo -E virsh change-media $VM hda --eject --config
 sudo -E rm -f ${DATA_DIR}/${VM}/${VM}-cidata.iso
 ```
 
-Finally, to destroy the vm named `centos7`
-
-```shell
-./del-vm.sh -n centos7
+### Destroy VM
+```
+./del-vm.sh -n ubuntu
 ```
 
-### TIPS
+### MORE OPTIONS
 
 * How to add a second disk?
-
-This command will create the `/dev/vdb` device with 60GB 
-
-```shell
+```
 ./add-disk.sh -n centos7 -d vdb -s 60G
 ```
 
 * How to provision a amazon linux?
-
 ```
 ./new-vm.sh -n amazon-demo -m 1024 -c 2 -i 192.168.122.11 -s 10G -t amazon2
 ```
 
-* How to enable dhcp?
-
-Change the following line in config.conf 
-
+* How to enable DHCP?
 ```
-DHCP_CLIENT=false
+DHCP_CLIENT=true
 ```
 
 ## References
 
 https://github.com/giovtorres/kvm-install-vm
 https://blog.programster.org/kvm-missing-default-network
+https://medium.com/@art.vasilyev/use-ubuntu-cloud-image-with-kvm-1f28c19f82f8
