@@ -28,7 +28,7 @@ Download Qcow2 cloud images:
 URL_QCOW2=https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img
 URL_QCOW2=http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 URL_QCOW2=https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20201217.0.x86_64.qcow2
-URL_QCOW2=https://cdn.amazonlinux.com/os-images/2.0.20201111.0/kvm/amzn2-kvm-2.0.20201111.0-x86_64.xfs.gpt.qcow2
+URL_QCOW2=https://cdn.amazonlinux.com/os-images/2.0.20230926.0/kvm/amzn2-kvm-2.0.20230926.0-x86_64.xfs.gpt.qcow2
 
 sudo -E wget -P /var/lib/libvirt/boot/ $URL_QCOW2
 ```

@@ -36,7 +36,7 @@ done
 
     case "${DISTRO}" in
         amazon2)
-            export QCOW2_IMAGE=amzn2-kvm-2.0.20201111.0-x86_64.xfs.gpt.qcow2
+            export QCOW2_IMAGE=amzn2-kvm-2.0.20230926.0-x86_64.xfs.gpt.qcow2
             export OS_VARIANT="rhel8.0"
             export LOGIN_USER=ec2-user
             export USER_DATA_TPL=user-data
