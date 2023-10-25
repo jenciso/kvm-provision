@@ -25,7 +25,6 @@ users:
     ssh-authorized-keys:
       - ${SSH_KEY_0}
       - ${SSH_KEY_1}
-      - ${SSH_KEY_2}
 
 # Configure where output will go
 output:

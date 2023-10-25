@@ -1,39 +1,43 @@
 #!/bin/bash
 
-## Argument validation
-die () {
-    echo >&2 "$@"
-    exit 1
-}
-[ "$#" -gt 0 ] || die "1 argument required, $# provided"
-
-# Function: Print a help message.
-usage() { 
-  echo "Usage: $0 [ vm_name ] [ -n vm_name ] [ -m memory_mb ] [ -c num_cpus ] [ -i ip ] [ -s disk_size ] [ -q qcow2_image ] [ -t distro ]" 1>&2 
-}
-
 ## Exports vars from config file
 set -o allexport
 source .env
 set +o allexport
 
-## Use the arguments passed to script file
-while getopts n:m:c:i:s:q:t:h option ; do
+## Function: Print a help message.
+usage() { 
+  echo "Usage: $0 [-m mem_mb ] [-c vcpu ] [-i ip ] [-s disk_size ] [-q qcow2_image ] [-t distro ] vm_name" 1>&2
+  exit 1
+}
+
+## Argument validation
+die () {
+    echo >&2 "$@"
+    usage
+    exit 1
+}
+[ "$#" -gt 0 ] || die "1 argument required, 0 provided"
+
+## Use arguments to define variables
+while getopts ":m:c:i:s:q:t:h:" option ; do
   case "${option}" in 
-    n) VM=${OPTARG};;
     m) VM_MEM=${OPTARG};;
     c) VM_CPU=${OPTARG};;
     i) IPADDR=${OPTARG};;
     s) DISK_SIZE=${OPTARG};;
     q) QCOW2_IMAGE=${OPTARG};;
     t) DISTRO=${OPTARG};;
-    h) usage && exit;;
-    *) VM=${OPTARG};;
+    h) usage ;;
+    *) usage ;;
   esac
 done
+shift $((OPTIND-1))
 
-## Initialize some vars
+## Define VM name from first argument
+VM=$1
 
+## Initialize others vars
     case "${DISTRO}" in
         amazon2)
             export QCOW2_IMAGE=amzn2-kvm-2.0.20230926.0-x86_64.xfs.gpt.qcow2
@@ -108,6 +112,7 @@ rm -f ${TPM_WORKDIR}/user-data ${TPM_WORKDIR}/meta-data
 sudo virsh pool-create-as --name $VM --type dir --target ${DATA_DIR}/$VM
 
 ## Creating VM
+echo "Creating the VM: $VM"
 sudo virt-install --import --name $VM \
 --memory ${VM_MEM} --vcpus ${VM_CPU} --cpu host \
 --disk ${DATA_DIR}/$VM/$VM.qcow2,format=qcow2,bus=virtio \
